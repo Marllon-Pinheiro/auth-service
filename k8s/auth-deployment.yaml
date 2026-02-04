@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: sistema-auth
-          image: pinheiromarllon/auth-service:8d5d91086306d56dcae994df17ce77148068a3f6
+          image: pinheiromarllon/auth-service:c799bcd623b0068431d65b80468b92575277badd
           ports:
             - containerPort: 8080 # Porta padrão Spring Boot que vimos no Dockerfile
           envFrom:
