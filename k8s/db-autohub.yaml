@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-autohub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-autohub
+  template:
+    metadata:
+      labels:
+        app: db-autohub
+    spec:
+      containers:
+        - name: db-autohub
+          image: postgres:16-alpine # Recomendado versão específica e alpine
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: db-autohub-configmap
+          volumeMounts:
+            - name: pg-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: pg-data
+          persistentVolumeClaim:
+            claimName: db-autohub-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-autohub-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

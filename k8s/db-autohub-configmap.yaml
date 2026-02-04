@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-autohub-configmap
+data:
+  POSTGRES_PASSWORD: q1w2
+  POSTGRES_USER: root
+  POSTGRES_DB: postgres

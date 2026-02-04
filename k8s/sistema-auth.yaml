@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sistema-auth
+spec:
+  replicas: 2 # Alta disponibilidade para seu SaaS
+  selector:
+    matchLabels:
+      app: sistema-auth
+  template:
+    metadata:
+      labels:
+        app: sistema-auth
+    spec:
+      containers:
+        - name: sistema-auth
+          image: pinheiromarllon/auth:latest # A pipeline de CI vai substituir isso pelo SHA
+          ports:
+            - containerPort: 8080 # Porta padrão Spring Boot que vimos no Dockerfile
+          envFrom:
+            - configMapRef:
+                name: sistema-auth-configmap
